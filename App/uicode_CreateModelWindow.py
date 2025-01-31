@@ -248,7 +248,7 @@ class CreateModelWindow(QMainWindow):
 
         step_future = self.ui.stepfuture_spinbox.value()
         step_past = self.ui.steppast_spinbox.value()
-        forecast_period = self.ui.forecastperiod_spinbox.value()
+        forecast_period = self.ui.forecastperiod_spinbox.value() + 1 # +1 because first forecasted data is the same as ending trainging data
         epochs = self.ui.epochs_spinbox.value()
         optimizer = self.ui.optimizer_combobox.currentText()
         loss = self.ui.loss_combobox.currentText()
@@ -270,7 +270,6 @@ class CreateModelWindow(QMainWindow):
                 else:
                     layer_dict[key] = val
             serialized_layer_widgets_dict.append(layer_dict)
-        print(serialized_layer_widgets_dict)
         serialized_layer_widgets_dict = json.dumps(serialized_layer_widgets_dict)
 
         model_data = {

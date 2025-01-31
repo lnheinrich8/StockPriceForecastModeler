@@ -75,7 +75,8 @@ def forecast(df, layers_config, target_variable, training_cols=["open", "high", 
         # Prepare forecasted dates
         forecast_dates = [time_i.date() for time_i in forecast_period_dates]
         df_forecast = pd.DataFrame({'date': forecast_dates, forecast_variable: y_pred_future})
-        df_forecast['date'] = pd.to_datetime(df_forecast['date'])
+        df_forecast['date'] = pd.to_datetime(df_forecast['date']).dt.date
+        # df_forecast['date'] = pd.to_datetime(df_forecast['date'])
         last_forecast_date = df_forecast['date'].max()
 
         # Actual Data

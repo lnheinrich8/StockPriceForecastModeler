@@ -8,9 +8,11 @@ class GraphWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.df = None
+        self.forecast_len = None
         self.graph_variable = None
         self.margin = 10
         self.line_color = QColor(242, 7, 74)
+        self.forecast_line_color = QColor(0, 0, 255)
         self.background_color = QColor(75, 75, 75)
         self.axis_color = QColor(60, 60, 60)
 
@@ -34,6 +36,11 @@ class GraphWidget(QWidget):
         self.visible_start = max(0, len(df) - self.visible_window) # last n points
         self.update()
 
+    def set_forecast_result(self, result_df):
+        self.df = pd.concat([self.df, result_df], ignore_index=True)
+        self.forecast_len = len(result_df)
+        self.visible_start = max(0, len(self.df) - self.visible_window) # last n points
+        self.update()
 
     def set_params(self, window):
         if window != 'max':
@@ -56,6 +63,7 @@ class GraphWidget(QWidget):
 
     def clear_graph(self):
         self.df = None
+        self.forecast_len = None
         self.update()
 
 
@@ -115,8 +123,17 @@ class GraphWidget(QWidget):
             points.append((x, y))
 
         # draw the graph
-        for i in range(len(points) - 1):
-            painter.drawLine(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1])
+        if self.forecast_len is not None:
+            for i in range(len(points) - 1):
+                if i < len(points) - self.forecast_len - 1:
+                    painter.drawLine(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1])
+                else:
+                    painter.setPen(QPen(self.forecast_line_color, 2))
+                    painter.drawLine(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1])
+        else:
+            for i in range(len(points) - 1):
+                painter.drawLine(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1])
+
 
 
     def draw_crosshair(self, painter):
@@ -177,6 +194,11 @@ class GraphWidget(QWidget):
             delta = event.angleDelta().y() // -120  # scroll direction (1 step per scroll tick)
             new_start = self.visible_start - delta * 5  # move 5 data points per scroll tick
             self.visible_start = max(0, min(len(self.df) - self.visible_window, new_start))
+
+            if self.forecast_len is not None:
+                self.df = self.df.iloc[:-self.forecast_len]
+                self.forecast_len = None
+
             self.update()
 
     def mouseMoveEvent(self, event: QMouseEvent):

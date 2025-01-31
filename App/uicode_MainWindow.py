@@ -245,8 +245,8 @@ class MainWindow(QMainWindow):
             error_dialog.setInformativeText(str(result))  # Show the exception message
             error_dialog.exec()
         else:
-            # TODOOOOOOOOOO Handle the forecasted DataFrame
-            print(result)  # Replace this with further processing or updating the UI
+            result = result.iloc[1:]
+            self.graph_widget.set_forecast_result(result)
 
 
 if __name__ == "__main__":
