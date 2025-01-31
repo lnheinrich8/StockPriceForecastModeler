@@ -1,6 +1,7 @@
 # TradingDeepLearningBuilder
-Proof of concept for a UI in which the user can build a Neural Net, define its parameters, and deploy it on financial time series data
+An interface in which the user can build a Neural Net, define its parameters, and deploy it on financial time series data.
 
+(Current app has a few hardcoded values and cannot be used to place real trades. This app serves as a proof of concept)
 
 
 ![Screenshot 2025-01-31 153631](https://github.com/user-attachments/assets/1474d189-7362-4156-9b70-31f21e847193)
