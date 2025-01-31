@@ -55,7 +55,6 @@ class CreateModelWindow(QMainWindow):
         self.layer_widgets_dict = []  # store dictionaries for each layer
         self.layer_neuron_values = [] # store neuron values for each layer
         self.layer_type_values = [] # store type values for each layer
-        self.layer_rseq_bools = [] # store rseq bools for each layer
         self.ui.layercount_spinBox.setValue(2)
 
         # Add the DrawingWidget
@@ -75,7 +74,6 @@ class CreateModelWindow(QMainWindow):
         self.ui.layercount_spinBox.valueChanged.connect(self.update_layer_options)
 
         # left side
-        self.ui.clearrseq_button.clicked.connect(self.on_clearrseq_button_clicked)
         self.ui.restore_button.clicked.connect(self.on_restore_button_clicked)
         # right side
         self.ui.selectalltcols_button.clicked.connect(self.on_selectalltcols_button_clicked)
@@ -126,7 +124,6 @@ class CreateModelWindow(QMainWindow):
 
                 layer_data['dropout_spinbox'] = dropout_spinbox
 
-
             else:
                 layer_layout = QHBoxLayout()
 
@@ -147,18 +144,10 @@ class CreateModelWindow(QMainWindow):
                 layer_layout.addWidget(type_label, alignment=Qt.AlignLeft)
                 # combobox for type of layer
                 type_combobox = QComboBox(self)
-                type_combobox.setFixedSize(70,20)
-                type_combobox.addItems(["Dense", "LSTM", "GRU", "SimpleRNN"])  # Example types
+                type_combobox.setFixedSize(140,20)
+                type_combobox.addItems(["LSTM", "GRU", "SimpleRNN", "Dense"]) # Example types
                 layer_layout.addWidget(type_combobox, alignment=Qt.AlignLeft)
                 layer_data['type_combobox'] = type_combobox
-
-                # label for return sequences
-                rseq_label = QLabel("r_seq:")
-                layer_layout.addWidget(rseq_label, alignment=Qt.AlignLeft)
-                # checkbox for return sequences
-                rseq_checkbox = QCheckBox(None)
-                layer_layout.addWidget(rseq_checkbox, alignment=Qt.AlignLeft)
-                layer_data['rseq_checkbox'] = rseq_checkbox
 
             # Add the horizontal layout to the main vertical layout
             self.layer_options_layout.addLayout(layer_layout)
@@ -168,12 +157,10 @@ class CreateModelWindow(QMainWindow):
         self.updating_layers = True
         self.update_neuron_spinboxes()
         self.update_type_comboboxes()
-        self.update_rseq_checkboxes()
         self.updating_layers = False
 
         self.set_neuron_spinboxes_signals()
         self.set_type_comboboxes_signals()
-        self.set_rseq_checkboxes_signals()
         self.set_dropout_spinbox_signal()
 
 
@@ -202,7 +189,6 @@ class CreateModelWindow(QMainWindow):
         for i, layer in enumerate(self.layer_widgets_dict):
             if i != len(self.layer_widgets_dict)-1:
                 layer['type_combobox'].currentIndexChanged.connect(self.update_type_comboboxes)
-                layer['type_combobox'].currentIndexChanged.connect(self.update_rseq_checkboxes) # connect signal to updating rseq as well
 
                 if i < len(self.layer_type_values):
                     self.layer_type_values[i] = layer['type_combobox'].currentIndex()
@@ -218,38 +204,6 @@ class CreateModelWindow(QMainWindow):
                 if i != len(self.layer_widgets_dict)-1:
                     self.layer_type_values[i] = layer['type_combobox'].currentIndex()
 
-    # --- RSeq Shi ---
-    def set_rseq_checkboxes_signals(self):
-        for i, layer in enumerate(self.layer_widgets_dict):
-            if i != len(self.layer_widgets_dict)-1:
-                layer['rseq_checkbox'].stateChanged.connect(self.update_rseq_checkboxes)
-
-                if i < len(self.layer_rseq_bools):
-                    self.layer_rseq_bools[i] = layer['rseq_checkbox'].isChecked()
-                else:
-                    self.layer_rseq_bools.append(layer['rseq_checkbox'].isChecked())
-    def update_rseq_checkboxes(self):
-        if self.updating_layers:
-            for k in range(len(self.layer_rseq_bools)):
-                if k < self.layer_count-1:
-                    if self.layer_widgets_dict[k]['type_combobox'].currentText() == 'Dense':
-                        self.layer_widgets_dict[k]['rseq_checkbox'].setEnabled(False)
-                    else:
-                        self.layer_widgets_dict[k]['rseq_checkbox'].setChecked(self.layer_rseq_bools[k])
-        else:
-            for i, layer in enumerate(self.layer_widgets_dict):
-                if i != len(self.layer_widgets_dict)-1:
-                    if layer['type_combobox'].currentText() == 'Dense':
-                        layer['rseq_checkbox'].setChecked(False)
-                        layer['rseq_checkbox'].setEnabled(False)
-                    else:
-                        if i != len(self.layer_widgets_dict)-2 and self.layer_widgets_dict[i+1]['type_combobox'].currentText() in ['LSTM', 'GRU', 'SimpleRNN']:
-                            layer['rseq_checkbox'].setChecked(True)
-                            layer['rseq_checkbox'].setEnabled(False)
-                            self.layer_rseq_bools[i] = layer['rseq_checkbox'].isChecked()
-                        else:
-                            layer['rseq_checkbox'].setEnabled(True)
-                            self.layer_rseq_bools[i] = layer['rseq_checkbox'].isChecked()
 
     # --- Dropout Shi ---
     def set_dropout_spinbox_signal(self):
@@ -260,17 +214,11 @@ class CreateModelWindow(QMainWindow):
         self.dropout_val = dropout_spinbox.value()
 
 
-    def on_clearrseq_button_clicked(self):
-        for i, layer in enumerate(self.layer_widgets_dict):
-            if i != len(self.layer_widgets_dict)-1:
-                layer['rseq_checkbox'].setChecked(False)
     def on_restore_button_clicked(self):
         self.layer_widgets_dict = []
         self.layer_neuron_values = []
         self.layer_type_values = []
-        self.layer_rseq_bools = []
         self.dropout_val = 20
-        self.on_clearrseq_button_clicked()
         self.update_layer_options()
 
     def on_selectalltcols_button_clicked(self):
@@ -282,8 +230,22 @@ class CreateModelWindow(QMainWindow):
             item = self.ui.trainingcols_listwidget.item(row)
             item.setSelected(False)
 
+
+    def add_return_seq(self):
+        for i, layer in enumerate(self.layer_widgets_dict):
+            if i < len(self.layer_widgets_dict)-2:
+                if (layer['type_combobox'].currentText() in ['LSTM', 'GRU', 'SimpleRNN'] and
+                    self.layer_widgets_dict[i+1]['type_combobox'].currentText() in ['LSTM', 'GRU', 'SimpleRNN']):
+                    layer['rseq'] = True
+                else:
+                    layer['rseq'] = False
+            else:
+                if i == len(self.layer_widgets_dict)-2:
+                    layer['rseq'] = False
+
     def on_setmodel_button_clicked(self):
-        # TODOOOOOOOOOOO additional data that needs to be serialized
+        self.add_return_seq()
+
         step_future = self.ui.stepfuture_spinbox.value()
         step_past = self.ui.steppast_spinbox.value()
         forecast_period = self.ui.forecastperiod_spinbox.value()
@@ -297,11 +259,33 @@ class CreateModelWindow(QMainWindow):
             if item.isSelected():
                 trainingcols.append(item.text())
 
+        serialized_layer_widgets_dict = []
+        for layer in self.layer_widgets_dict:
+            layer_dict = {}
+            for key, val in layer.items():
+                if isinstance(val, QSpinBox):
+                    layer_dict[key] = val.value()
+                elif isinstance(val, QComboBox):
+                    layer_dict[key] = val.currentText()
+                else:
+                    layer_dict[key] = val
+            serialized_layer_widgets_dict.append(layer_dict)
+        print(serialized_layer_widgets_dict)
+        serialized_layer_widgets_dict = json.dumps(serialized_layer_widgets_dict)
 
-        serialized_data = json.dumps([
-            {key: widget.value() if isinstance(widget, QSpinBox) else widget.isChecked() if isinstance(widget, QCheckBox) else widget.currentText() for key, widget in layer.items()}
-            for layer in self.layer_widgets_dict
-        ])
+        model_data = {
+            "layer_widgets_dict": json.loads(serialized_layer_widgets_dict),
+            "step_future": step_future,
+            "step_past": step_past,
+            "forecast_period": forecast_period,
+            "epochs": epochs,
+            "optimizer": optimizer,
+            "loss": loss,
+            "target_variable": target_variable,
+            "training_cols": trainingcols
+        }
+
+        serialized_data = json.dumps(model_data, indent=4)
+
         self.data_submitted.emit(serialized_data)
         self.close()
-
