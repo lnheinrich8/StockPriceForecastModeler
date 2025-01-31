@@ -25,51 +25,103 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(570, 600)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(800, 600))
-        MainWindow.setMaximumSize(QSize(800, 600))
+        MainWindow.setMinimumSize(QSize(570, 600))
+        MainWindow.setMaximumSize(QSize(570, 600))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(20, 0, 761, 571))
+        self.tabWidget.setGeometry(QRect(20, 0, 531, 571))
         self.tabWidget.setTabShape(QTabWidget.Rounded)
         self.tab1 = QWidget()
         self.tab1.setObjectName(u"tab1")
+        self.graph_placeholder_widget = QWidget(self.tab1)
+        self.graph_placeholder_widget.setObjectName(u"graph_placeholder_widget")
+        self.graph_placeholder_widget.setGeometry(QRect(30, 120, 471, 371))
         self.layoutWidget = QWidget(self.tab1)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(21, 23, 383, 60))
-        self.verticalLayout = QVBoxLayout(self.layoutWidget)
+        self.layoutWidget.setGeometry(QRect(40, 490, 304, 26))
+        self.horizontalLayout_3 = QHBoxLayout(self.layoutWidget)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.timewindow_label = QLabel(self.layoutWidget)
+        self.timewindow_label.setObjectName(u"timewindow_label")
+
+        self.horizontalLayout_3.addWidget(self.timewindow_label)
+
+        self.window10_button = QPushButton(self.layoutWidget)
+        self.window10_button.setObjectName(u"window10_button")
+        self.window10_button.setMaximumSize(QSize(30, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.window10_button)
+
+        self.window50_button = QPushButton(self.layoutWidget)
+        self.window50_button.setObjectName(u"window50_button")
+        self.window50_button.setMaximumSize(QSize(30, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.window50_button)
+
+        self.window100_button = QPushButton(self.layoutWidget)
+        self.window100_button.setObjectName(u"window100_button")
+        self.window100_button.setMaximumSize(QSize(30, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.window100_button)
+
+        self.window500_button = QPushButton(self.layoutWidget)
+        self.window500_button.setObjectName(u"window500_button")
+        self.window500_button.setMaximumSize(QSize(35, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.window500_button)
+
+        self.window1000_button = QPushButton(self.layoutWidget)
+        self.window1000_button.setObjectName(u"window1000_button")
+        self.window1000_button.setMaximumSize(QSize(35, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.window1000_button)
+
+        self.windowmax_button = QPushButton(self.layoutWidget)
+        self.windowmax_button.setObjectName(u"windowmax_button")
+        self.windowmax_button.setMaximumSize(QSize(35, 16777215))
+
+        self.horizontalLayout_3.addWidget(self.windowmax_button)
+
+        self.widget = QWidget(self.tab1)
+        self.widget.setObjectName(u"widget")
+        self.widget.setGeometry(QRect(21, 10, 475, 80))
+        self.horizontalLayout_4 = QHBoxLayout(self.widget)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.choose_ticker_label = QLabel(self.layoutWidget)
+        self.choose_ticker_label = QLabel(self.widget)
         self.choose_ticker_label.setObjectName(u"choose_ticker_label")
 
         self.horizontalLayout.addWidget(self.choose_ticker_label)
 
-        self.ticker_combobox = QComboBox(self.layoutWidget)
+        self.ticker_combobox = QComboBox(self.widget)
         self.ticker_combobox.setObjectName(u"ticker_combobox")
 
         self.horizontalLayout.addWidget(self.ticker_combobox)
 
-        self.or_label = QLabel(self.layoutWidget)
+        self.or_label = QLabel(self.widget)
         self.or_label.setObjectName(u"or_label")
 
         self.horizontalLayout.addWidget(self.or_label)
 
-        self.importcsv_label = QLabel(self.layoutWidget)
+        self.importcsv_label = QLabel(self.widget)
         self.importcsv_label.setObjectName(u"importcsv_label")
 
         self.horizontalLayout.addWidget(self.importcsv_label)
 
-        self.fileexplorer_button = QPushButton(self.layoutWidget)
+        self.fileexplorer_button = QPushButton(self.widget)
         self.fileexplorer_button.setObjectName(u"fileexplorer_button")
 
         self.horizontalLayout.addWidget(self.fileexplorer_button)
@@ -79,19 +131,19 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.currentdata_label = QLabel(self.layoutWidget)
+        self.currentdata_label = QLabel(self.widget)
         self.currentdata_label.setObjectName(u"currentdata_label")
 
         self.horizontalLayout_2.addWidget(self.currentdata_label)
 
-        self.import_button = QPushButton(self.layoutWidget)
+        self.import_button = QPushButton(self.widget)
         self.import_button.setObjectName(u"import_button")
         sizePolicy.setHeightForWidth(self.import_button.sizePolicy().hasHeightForWidth())
         self.import_button.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_2.addWidget(self.import_button)
 
-        self.back_button = QPushButton(self.layoutWidget)
+        self.back_button = QPushButton(self.widget)
         self.back_button.setObjectName(u"back_button")
         sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
         self.back_button.setSizePolicy(sizePolicy)
@@ -101,62 +153,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
-        self.graph_placeholder_widget = QWidget(self.tab1)
-        self.graph_placeholder_widget.setObjectName(u"graph_placeholder_widget")
-        self.graph_placeholder_widget.setGeometry(QRect(30, 170, 511, 321))
-        self.layoutWidget1 = QWidget(self.tab1)
-        self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(40, 490, 303, 26))
-        self.horizontalLayout_3 = QHBoxLayout(self.layoutWidget1)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.timewindow_label = QLabel(self.layoutWidget1)
-        self.timewindow_label.setObjectName(u"timewindow_label")
 
-        self.horizontalLayout_3.addWidget(self.timewindow_label)
+        self.horizontalLayout_4.addLayout(self.verticalLayout)
 
-        self.window10_button = QPushButton(self.layoutWidget1)
-        self.window10_button.setObjectName(u"window10_button")
-        self.window10_button.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.window10_button)
-
-        self.window50_button = QPushButton(self.layoutWidget1)
-        self.window50_button.setObjectName(u"window50_button")
-        self.window50_button.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.window50_button)
-
-        self.window100_button = QPushButton(self.layoutWidget1)
-        self.window100_button.setObjectName(u"window100_button")
-        self.window100_button.setMaximumSize(QSize(30, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.window100_button)
-
-        self.window500_button = QPushButton(self.layoutWidget1)
-        self.window500_button.setObjectName(u"window500_button")
-        self.window500_button.setMaximumSize(QSize(35, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.window500_button)
-
-        self.window1000_button = QPushButton(self.layoutWidget1)
-        self.window1000_button.setObjectName(u"window1000_button")
-        self.window1000_button.setMaximumSize(QSize(35, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.window1000_button)
-
-        self.windowmax_button = QPushButton(self.layoutWidget1)
-        self.windowmax_button.setObjectName(u"windowmax_button")
-        self.windowmax_button.setMaximumSize(QSize(35, 16777215))
-
-        self.horizontalLayout_3.addWidget(self.windowmax_button)
-
-        self.widget = QWidget(self.tab1)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(620, 30, 82, 78))
-        self.verticalLayout_2 = QVBoxLayout(self.widget)
+        self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.createmodel_button = QPushButton(self.widget)
         self.createmodel_button.setObjectName(u"createmodel_button")
 
@@ -172,6 +173,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.forecast_progress_label)
 
+
+        self.horizontalLayout_4.addLayout(self.verticalLayout_2)
+
         self.tabWidget.addTab(self.tab1, "")
         self.tab2 = QWidget()
         self.tab2.setObjectName(u"tab2")
@@ -179,7 +183,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 21))
+        self.menubar.setGeometry(QRect(0, 0, 570, 21))
         palette = QPalette()
         brush = QBrush(QColor(145, 145, 145, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -210,13 +214,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.choose_ticker_label.setText(QCoreApplication.translate("MainWindow", u"Default daily stock data:", None))
-        self.or_label.setText(QCoreApplication.translate("MainWindow", u" or", None))
-        self.importcsv_label.setText(QCoreApplication.translate("MainWindow", u"Import CSV:", None))
-        self.fileexplorer_button.setText(QCoreApplication.translate("MainWindow", u"File Explorer", None))
-        self.currentdata_label.setText(QCoreApplication.translate("MainWindow", u"Current Data: None", None))
-        self.import_button.setText(QCoreApplication.translate("MainWindow", u"Import", None))
-        self.back_button.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.timewindow_label.setText(QCoreApplication.translate("MainWindow", u"Trading Days:", None))
         self.window10_button.setText(QCoreApplication.translate("MainWindow", u"10", None))
         self.window50_button.setText(QCoreApplication.translate("MainWindow", u"50", None))
@@ -224,6 +221,13 @@ class Ui_MainWindow(object):
         self.window500_button.setText(QCoreApplication.translate("MainWindow", u"500", None))
         self.window1000_button.setText(QCoreApplication.translate("MainWindow", u"1000", None))
         self.windowmax_button.setText(QCoreApplication.translate("MainWindow", u"Max", None))
+        self.choose_ticker_label.setText(QCoreApplication.translate("MainWindow", u"Default daily stock data:", None))
+        self.or_label.setText(QCoreApplication.translate("MainWindow", u" or", None))
+        self.importcsv_label.setText(QCoreApplication.translate("MainWindow", u"Import CSV:", None))
+        self.fileexplorer_button.setText(QCoreApplication.translate("MainWindow", u"File Explorer", None))
+        self.currentdata_label.setText(QCoreApplication.translate("MainWindow", u"Current Data: None", None))
+        self.import_button.setText(QCoreApplication.translate("MainWindow", u"Import", None))
+        self.back_button.setText(QCoreApplication.translate("MainWindow", u"Back", None))
         self.createmodel_button.setText(QCoreApplication.translate("MainWindow", u"Create Model", None))
         self.forecast_button.setText(QCoreApplication.translate("MainWindow", u"Forecast", None))
         self.forecast_progress_label.setText(QCoreApplication.translate("MainWindow", u"Forecasting...", None))
