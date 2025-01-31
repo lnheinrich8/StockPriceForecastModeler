@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>660</width>
-    <height>520</height>
+    <height>605</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,13 +22,13 @@
   <property name="minimumSize">
    <size>
     <width>660</width>
-    <height>520</height>
+    <height>605</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>660</width>
-    <height>520</height>
+    <height>605</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>480</y>
+     <y>570</y>
      <width>80</width>
      <height>24</height>
     </rect>
@@ -101,7 +101,7 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>160</y>
+     <y>260</y>
      <width>380</width>
      <height>300</height>
     </rect>
@@ -113,7 +113,7 @@
      <x>10</x>
      <y>70</y>
      <width>251</width>
-     <height>441</height>
+     <height>521</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -125,7 +125,7 @@
       <x>0</x>
       <y>0</y>
       <width>249</width>
-      <height>439</height>
+      <height>519</height>
      </rect>
     </property>
    </widget>
@@ -147,7 +147,7 @@
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>40</y>
+     <y>39</y>
      <width>111</width>
      <height>22</height>
     </rect>
@@ -156,11 +156,11 @@
     <string>Restore Defaults</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="target_label">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>30</y>
+     <x>280</x>
+     <y>188</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -169,11 +169,11 @@
     <string>Target Variable:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="trainingcols_label">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>60</y>
+     <x>280</x>
+     <y>12</y>
      <width>101</width>
      <height>16</height>
     </rect>
@@ -185,8 +185,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>90</y>
+     <x>450</x>
+     <y>140</y>
      <width>101</width>
      <height>27</height>
     </rect>
@@ -232,11 +232,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>120</y>
+     <x>450</x>
+     <y>100</y>
      <width>88</width>
      <height>27</height>
     </rect>
@@ -270,11 +270,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>50</y>
+     <x>450</x>
+     <y>180</y>
      <width>121</width>
      <height>27</height>
     </rect>
@@ -305,11 +305,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>90</y>
+     <x>450</x>
+     <y>60</y>
      <width>135</width>
      <height>26</height>
     </rect>
@@ -327,11 +327,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>120</y>
+     <y>20</y>
      <width>184</width>
      <height>26</height>
     </rect>
@@ -371,11 +371,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>20</y>
+     <x>450</x>
+     <y>220</y>
      <width>78</width>
      <height>27</height>
     </rect>
@@ -411,6 +411,52 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QListWidget" name="trainingcols_listwidget">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>35</y>
+     <width>141</width>
+     <height>101</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="selectalltcols_button">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>135</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select All</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="target_combobox">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>210</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="deselectalltcols_button">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>135</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Deselect All</string>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -8,7 +8,8 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QComboBox,
-    QCheckBox
+    QCheckBox,
+    QListWidget
 )
 
 import json
@@ -29,16 +30,22 @@ class CreateModelWindow(QMainWindow):
         self.column_names = column_names
 
         # right side params initialization
+
         self.ui.optimizer_combobox.addItems(["SGD", "RMSprop", "Adam","Adamw",
         "Adadelta", "Adagrad", "Adamax", "Nadam", "Ftrl", "Lion"])
         self.ui.optimizer_combobox.setCurrentText("Adam")
+
         self.ui.loss_combobox.addItems(["binary_crossentropy", "categorical_crossentropy",
         "sparse_categorical_crossentropy", "poisson", "ctc", "kl_divergence", "mean_squared_error",
         "mean_absolute_error", "mean_absolute_percentage_error", "mean_squared_logarithmic_error",
         "cosine_similarity", "huber", "log_cosh", "hinge", "squared_hinge", "categorical_hinge"])
         self.ui.loss_combobox.setCurrentText("mean_squared_error")
 
-        # TODOOOOOOOOOOOO use column_names to initialize target variable and training columns
+        self.ui.trainingcols_listwidget.addItems(self.column_names)
+        self.ui.trainingcols_listwidget.setSelectionMode(QListWidget.MultiSelection)
+
+        self.ui.target_combobox.addItems(self.column_names)
+
 
         self.updating_layers = False
         self.layer_count = 0
@@ -67,9 +74,14 @@ class CreateModelWindow(QMainWindow):
         self.ui.layercount_spinBox.valueChanged.connect(self.layercount_spinbox_changed)
         self.ui.layercount_spinBox.valueChanged.connect(self.update_layer_options)
 
+        # left side
         self.ui.clearrseq_button.clicked.connect(self.on_clearrseq_button_clicked)
         self.ui.restore_button.clicked.connect(self.on_restore_button_clicked)
+        # right side
+        self.ui.selectalltcols_button.clicked.connect(self.on_selectalltcols_button_clicked)
+        self.ui.deselectalltcols_button.clicked.connect(self.on_deselectalltcols_button_clicked)
 
+        # final signals
         self.ui.setmodel_button.clicked.connect(self.on_setmodel_button_clicked)
 
         # Initial drawing
@@ -252,7 +264,6 @@ class CreateModelWindow(QMainWindow):
         for i, layer in enumerate(self.layer_widgets_dict):
             if i != len(self.layer_widgets_dict)-1:
                 layer['rseq_checkbox'].setChecked(False)
-
     def on_restore_button_clicked(self):
         self.layer_widgets_dict = []
         self.layer_neuron_values = []
@@ -262,6 +273,15 @@ class CreateModelWindow(QMainWindow):
         self.on_clearrseq_button_clicked()
         self.update_layer_options()
 
+    def on_selectalltcols_button_clicked(self):
+        for row in range(self.ui.trainingcols_listwidget.count()):
+            item = self.ui.trainingcols_listwidget.item(row)
+            item.setSelected(True)
+    def on_deselectalltcols_button_clicked(self):
+        for row in range(self.ui.trainingcols_listwidget.count()):
+            item = self.ui.trainingcols_listwidget.item(row)
+            item.setSelected(False)
+
     def on_setmodel_button_clicked(self):
         # TODOOOOOOOOOOO additional data that needs to be serialized
         step_future = self.ui.stepfuture_spinbox.value()
@@ -270,6 +290,13 @@ class CreateModelWindow(QMainWindow):
         epochs = self.ui.epochs_spinbox.value()
         optimizer = self.ui.optimizer_combobox.currentText()
         loss = self.ui.loss_combobox.currentText()
+        target_variable = self.ui.target_combobox.currentText()
+        trainingcols = []
+        for row in range(self.ui.trainingcols_listwidget.count()):
+            item = self.ui.trainingcols_listwidget.item(row)
+            if item.isSelected():
+                trainingcols.append(item.text())
+
 
         serialized_data = json.dumps([
             {key: widget.value() if isinstance(widget, QSpinBox) else widget.isChecked() if isinstance(widget, QCheckBox) else widget.currentText() for key, widget in layer.items()}
