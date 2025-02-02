@@ -21,13 +21,15 @@ class CreateModelWindow(QMainWindow):
 
     data_submitted = Signal(str)
 
-    def __init__(self, column_names, parent=None):
+    def __init__(self, column_names, target_variable, parent=None):
         super().__init__(parent)
         self.ui = Ui_CreateModel()
         self.ui.setupUi(self)
 
         # column names from passed df in MainWindow
         self.column_names = column_names
+        self.target_variable = target_variable
+        self.ui.target_placeholder_label.setText(self.target_variable)
 
         # right side params initialization
 
@@ -43,8 +45,6 @@ class CreateModelWindow(QMainWindow):
 
         self.ui.trainingcols_listwidget.addItems(self.column_names)
         self.ui.trainingcols_listwidget.setSelectionMode(QListWidget.MultiSelection)
-
-        self.ui.target_combobox.addItems(self.column_names)
 
 
         self.updating_layers = False
@@ -252,7 +252,7 @@ class CreateModelWindow(QMainWindow):
         epochs = self.ui.epochs_spinbox.value()
         optimizer = self.ui.optimizer_combobox.currentText()
         loss = self.ui.loss_combobox.currentText()
-        target_variable = self.ui.target_combobox.currentText()
+        target_variable = self.target_variable
         trainingcols = []
         for row in range(self.ui.trainingcols_listwidget.count()):
             item = self.ui.trainingcols_listwidget.item(row)

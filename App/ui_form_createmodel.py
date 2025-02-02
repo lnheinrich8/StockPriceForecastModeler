@@ -78,7 +78,7 @@ class Ui_CreateModel(object):
         self.restore_button.setGeometry(QRect(142, 23, 111, 22))
         self.target_label = QLabel(CreateModel)
         self.target_label.setObjectName(u"target_label")
-        self.target_label.setGeometry(QRect(280, 188, 81, 16))
+        self.target_label.setGeometry(QRect(280, 180, 81, 16))
         self.trainingcols_label = QLabel(CreateModel)
         self.trainingcols_label.setObjectName(u"trainingcols_label")
         self.trainingcols_label.setGeometry(QRect(280, 12, 101, 16))
@@ -211,12 +211,12 @@ class Ui_CreateModel(object):
         self.selectalltcols_button = QPushButton(CreateModel)
         self.selectalltcols_button.setObjectName(u"selectalltcols_button")
         self.selectalltcols_button.setGeometry(QRect(280, 135, 71, 20))
-        self.target_combobox = QComboBox(CreateModel)
-        self.target_combobox.setObjectName(u"target_combobox")
-        self.target_combobox.setGeometry(QRect(280, 210, 141, 24))
         self.deselectalltcols_button = QPushButton(CreateModel)
         self.deselectalltcols_button.setObjectName(u"deselectalltcols_button")
         self.deselectalltcols_button.setGeometry(QRect(350, 135, 71, 20))
+        self.target_placeholder_label = QLabel(CreateModel)
+        self.target_placeholder_label.setObjectName(u"target_placeholder_label")
+        self.target_placeholder_label.setGeometry(QRect(280, 200, 111, 16))
 
         self.retranslateUi(CreateModel)
 
@@ -238,5 +238,6 @@ class Ui_CreateModel(object):
         self.epochs_label.setText(QCoreApplication.translate("CreateModel", u"Epochs:  ", None))
         self.selectalltcols_button.setText(QCoreApplication.translate("CreateModel", u"Select All", None))
         self.deselectalltcols_button.setText(QCoreApplication.translate("CreateModel", u"Deselect All", None))
+        self.target_placeholder_label.setText(QCoreApplication.translate("CreateModel", u"target_placeholder", None))
     # retranslateUi
 

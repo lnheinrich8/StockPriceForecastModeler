@@ -90,6 +90,8 @@ class MainWindow(QMainWindow):
         self.ui.forecast_button.clicked.connect(self.on_forecast_button_clicked)
 
         # graph stuff
+        self.ui.cols_combobox.currentIndexChanged.connect(self.on_cols_combobox_changed)
+
         self.ui.window10_button.clicked.connect(self.on_timewindow10_changed)
         self.ui.window50_button.clicked.connect(self.on_timewindow50_changed)
         self.ui.window100_button.clicked.connect(self.on_timewindow100_changed)
@@ -143,6 +145,7 @@ class MainWindow(QMainWindow):
 
             self.data_loaded = True
 
+            self.show_column_options(True)
             self.graph_widget.set_data(self.df, 'open')
 
     def on_back_button_clicked(self):
@@ -158,12 +161,24 @@ class MainWindow(QMainWindow):
         self.ui.currentdata_label.setText("Current Data: None")
         self.data_loaded = False
 
+        self.show_column_options(False)
         self.graph_widget.clear_graph()
 
+    def show_column_options(self, show):
+        if show:
+            filtered_df = self.df.drop(columns=['date'], errors='ignore')
+            column_names = filtered_df.columns.tolist()
+            self.ui.cols_combobox.addItems(column_names)
+        else:
+            self.ui.cols_combobox.clear()
 
     #
     # graph stuff
     #
+    def on_cols_combobox_changed(self):
+        if self.ui.cols_combobox.count() != 0:
+            self.graph_widget.set_data(self.df, self.ui.cols_combobox.currentText())
+
     def on_timewindow10_changed(self):
         if self.df is not None:
             self.graph_widget.set_params(10)
@@ -190,8 +205,10 @@ class MainWindow(QMainWindow):
 
     def on_createmodel_button_clicked(self):
         filtered_df = self.df.drop(columns=['date'], errors='ignore')
-        column_names = filtered_df.columns.tolist()  # Get column names as a list
-        self.window = CreateModelWindow(column_names)
+        column_names = filtered_df.columns.tolist()
+        target_variable = self.ui.cols_combobox.currentText()
+
+        self.window = CreateModelWindow(column_names, target_variable)
         # for data recieved
         self.window.data_submitted.connect(self.data_from_create_model)
         self.window.show()
