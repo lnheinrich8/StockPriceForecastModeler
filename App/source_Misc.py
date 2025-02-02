@@ -1,35 +1,7 @@
 import yfinance as yf
 import pandas as pd
-import numpy as np
-import pywt
 import requests
 from bs4 import BeautifulSoup
-
-# DATASET ALTERATION
-
-def wavelet_transform(df, col):
-    coeffs = pywt.wavedec(df[col], 'db38', mode='symmetric')
-    k = 4
-    while True:
-        try:
-            for i in range(k):
-                coeffs[i + k] = np.zeros(coeffs[i + k].shape)
-            denoised = pywt.waverec(coeffs, 'db38', mode='symmetric')
-            break
-        except IndexError:
-            k -= 1
-    return denoised if len(denoised) == len(df) else denoised[1:]
-
-def rsi(ohlc: pd.DataFrame, period: int = 14) -> pd.Series:
-    delta = ohlc["Close"].diff()
-    up, down = delta.copy(), delta.copy()
-    up[up < 0] = 0
-    down[down > 0] = 0
-    _gain = up.ewm(com=(period - 1), min_periods=period).mean()
-    _loss = down.abs().ewm(com=(period - 1), min_periods=period).mean()
-    RS = _gain / _loss
-    return pd.Series(100 - (100 / (1 + RS)), name="RSI")
-
 
 # MISC
 
