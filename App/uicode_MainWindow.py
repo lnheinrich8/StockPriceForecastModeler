@@ -65,8 +65,6 @@ class MainWindow(QMainWindow):
             self.ui.ticker_combobox.addItem(ticker, ticker)
         self.ui.ticker_combobox.setCurrentIndex(-1)
 
-        self.ui.import_button.setEnabled(False)
-        self.ui.back_button.setEnabled(False)
         self.ui.forecast_progress_label.setVisible(False)
 
         self.ui.createmodel_button.setEnabled(False)
@@ -81,9 +79,6 @@ class MainWindow(QMainWindow):
 
         # data import stuff
         self.ui.ticker_combobox.currentIndexChanged.connect(self.on_ticker_combobox_changed)
-        self.ui.fileexplorer_button.clicked.connect(self.on_fileexplorer_button_clicked)
-        self.ui.import_button.clicked.connect(self.on_import_button_clicked)
-        self.ui.back_button.clicked.connect(self.on_back_button_clicked)
 
         # model stuff
         self.ui.createmodel_button.clicked.connect(self.on_createmodel_button_clicked)
@@ -107,62 +102,14 @@ class MainWindow(QMainWindow):
     #
     def on_ticker_combobox_changed(self):
         ticker = self.ui.ticker_combobox.currentText()
-        self.ui.currentdata_label.setText("Current Data: " + ticker)
         self.df = mc.get_data(ticker)
-        self.ui.import_button.setEnabled(True)
 
-    def on_fileexplorer_button_clicked(self):
-        file_name, _ = QFileDialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv)")
+        self.ui.createmodel_button.setEnabled(True)
 
-        if file_name:
-            file_base = os.path.basename(file_name)
-            self.ui.currentdata_label.setText("Current Data: " + file_base)
+        self.data_loaded = True
 
-            self.df = mc.read_csv(file_name)
-
-            self.ui.import_button.setEnabled(True)
-            self.ui.ticker_combobox.blockSignals(True)
-            self.ui.ticker_combobox.setCurrentIndex(-1)
-            self.ui.ticker_combobox.blockSignals(False)
-
-            if self.df is None:
-                message = "Failed to read the CSV file"
-                warning_box = QMessageBox(QMessageBox.Warning, "File Read Error", message, QMessageBox.Ok, self)
-                warning_box.exec()
-        else:
-            self.ui.currentdata_label.setText("Current Data: None")
-            message = "No file selected"
-            warning_box = QMessageBox(QMessageBox.Warning, "No File Selected", message, QMessageBox.Ok, self)
-            warning_box.exec()
-
-    def on_import_button_clicked(self):
-        if self.df is not None:
-            self.ui.ticker_combobox.setEnabled(False)
-            self.ui.fileexplorer_button.setEnabled(False)
-            self.ui.import_button.setEnabled(False)
-            self.ui.back_button.setEnabled(True)
-            self.ui.createmodel_button.setEnabled(True)
-
-            self.data_loaded = True
-
-            self.show_column_options(True)
-            self.graph_widget.set_data(self.df, 'open')
-
-    def on_back_button_clicked(self):
-        self.df = None
-        self.ui.ticker_combobox.setEnabled(True)
-        self.ui.fileexplorer_button.setEnabled(True)
-        self.ui.createmodel_button.setEnabled(False)
-
-        self.ui.back_button.setEnabled(False)
-        self.ui.ticker_combobox.blockSignals(True)
-        self.ui.ticker_combobox.setCurrentIndex(-1)
-        self.ui.ticker_combobox.blockSignals(False)
-        self.ui.currentdata_label.setText("Current Data: None")
-        self.data_loaded = False
-
-        self.show_column_options(False)
-        self.graph_widget.clear_graph()
+        self.show_column_options(True)
+        self.graph_widget.set_data(self.df, 'open')
 
     def show_column_options(self, show):
         if show:
@@ -246,7 +193,6 @@ class MainWindow(QMainWindow):
     def enableb_forecast(self, bool):
         self.ui.createmodel_button.setEnabled(bool)
         self.ui.forecast_button.setEnabled(bool)
-        self.ui.back_button.setEnabled(bool)
 
     def on_forecast_complete(self, result):
         self.ui.forecast_progress_label.setVisible(False)

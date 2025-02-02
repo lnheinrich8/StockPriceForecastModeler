@@ -30,6 +30,7 @@ class GraphWidget(QWidget):
     def set_data(self, df, graph_variable):
         self.df = None
         self.df = df
+        self.forecast_len = None
         self.graph_variable = None
         self.graph_variable = graph_variable
 

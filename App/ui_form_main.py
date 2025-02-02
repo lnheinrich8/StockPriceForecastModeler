@@ -18,8 +18,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QLabel,
     QMainWindow, QMenu, QMenuBar, QPushButton,
-    QSizePolicy, QStatusBar, QTabWidget, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QStatusBar, QTabWidget, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -43,7 +42,7 @@ class Ui_MainWindow(object):
         self.tab1.setObjectName(u"tab1")
         self.graph_placeholder_widget = QWidget(self.tab1)
         self.graph_placeholder_widget.setObjectName(u"graph_placeholder_widget")
-        self.graph_placeholder_widget.setGeometry(QRect(29, 120, 471, 371))
+        self.graph_placeholder_widget.setGeometry(QRect(29, 70, 471, 421))
         self.layoutWidget = QWidget(self.tab1)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(40, 490, 304, 26))
@@ -86,94 +85,24 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.windowmax_button)
 
-        self.layoutWidget1 = QWidget(self.tab1)
-        self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(21, 10, 475, 80))
-        self.horizontalLayout_4 = QHBoxLayout(self.layoutWidget1)
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.choose_ticker_label = QLabel(self.layoutWidget1)
-        self.choose_ticker_label.setObjectName(u"choose_ticker_label")
-
-        self.horizontalLayout.addWidget(self.choose_ticker_label)
-
-        self.ticker_combobox = QComboBox(self.layoutWidget1)
-        self.ticker_combobox.setObjectName(u"ticker_combobox")
-
-        self.horizontalLayout.addWidget(self.ticker_combobox)
-
-        self.or_label = QLabel(self.layoutWidget1)
-        self.or_label.setObjectName(u"or_label")
-
-        self.horizontalLayout.addWidget(self.or_label)
-
-        self.importcsv_label = QLabel(self.layoutWidget1)
-        self.importcsv_label.setObjectName(u"importcsv_label")
-
-        self.horizontalLayout.addWidget(self.importcsv_label)
-
-        self.fileexplorer_button = QPushButton(self.layoutWidget1)
-        self.fileexplorer_button.setObjectName(u"fileexplorer_button")
-
-        self.horizontalLayout.addWidget(self.fileexplorer_button)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.currentdata_label = QLabel(self.layoutWidget1)
-        self.currentdata_label.setObjectName(u"currentdata_label")
-
-        self.horizontalLayout_2.addWidget(self.currentdata_label)
-
-        self.import_button = QPushButton(self.layoutWidget1)
-        self.import_button.setObjectName(u"import_button")
-        sizePolicy.setHeightForWidth(self.import_button.sizePolicy().hasHeightForWidth())
-        self.import_button.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_2.addWidget(self.import_button)
-
-        self.back_button = QPushButton(self.layoutWidget1)
-        self.back_button.setObjectName(u"back_button")
-        sizePolicy.setHeightForWidth(self.back_button.sizePolicy().hasHeightForWidth())
-        self.back_button.setSizePolicy(sizePolicy)
-
-        self.horizontalLayout_2.addWidget(self.back_button)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-
-        self.horizontalLayout_4.addLayout(self.verticalLayout)
-
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.createmodel_button = QPushButton(self.layoutWidget1)
-        self.createmodel_button.setObjectName(u"createmodel_button")
-
-        self.verticalLayout_2.addWidget(self.createmodel_button)
-
-        self.forecast_button = QPushButton(self.layoutWidget1)
-        self.forecast_button.setObjectName(u"forecast_button")
-
-        self.verticalLayout_2.addWidget(self.forecast_button)
-
-        self.forecast_progress_label = QLabel(self.layoutWidget1)
-        self.forecast_progress_label.setObjectName(u"forecast_progress_label")
-
-        self.verticalLayout_2.addWidget(self.forecast_progress_label)
-
-
-        self.horizontalLayout_4.addLayout(self.verticalLayout_2)
-
         self.cols_combobox = QComboBox(self.tab1)
         self.cols_combobox.setObjectName(u"cols_combobox")
-        self.cols_combobox.setGeometry(QRect(50, 100, 72, 20))
+        self.cols_combobox.setGeometry(QRect(56, 50, 72, 20))
+        self.choose_ticker_label = QLabel(self.tab1)
+        self.choose_ticker_label.setObjectName(u"choose_ticker_label")
+        self.choose_ticker_label.setGeometry(QRect(20, 13, 31, 16))
+        self.ticker_combobox = QComboBox(self.tab1)
+        self.ticker_combobox.setObjectName(u"ticker_combobox")
+        self.ticker_combobox.setGeometry(QRect(56, 10, 72, 24))
+        self.createmodel_button = QPushButton(self.tab1)
+        self.createmodel_button.setObjectName(u"createmodel_button")
+        self.createmodel_button.setGeometry(QRect(327, 14, 80, 24))
+        self.forecast_button = QPushButton(self.tab1)
+        self.forecast_button.setObjectName(u"forecast_button")
+        self.forecast_button.setGeometry(QRect(406, 14, 80, 24))
+        self.forecast_progress_label = QLabel(self.tab1)
+        self.forecast_progress_label.setObjectName(u"forecast_progress_label")
+        self.forecast_progress_label.setGeometry(QRect(410, 40, 69, 16))
         self.tabWidget.addTab(self.tab1, "")
         self.tab2 = QWidget()
         self.tab2.setObjectName(u"tab2")
@@ -218,13 +147,7 @@ class Ui_MainWindow(object):
         self.window500_button.setText(QCoreApplication.translate("MainWindow", u"500", None))
         self.window1000_button.setText(QCoreApplication.translate("MainWindow", u"1000", None))
         self.windowmax_button.setText(QCoreApplication.translate("MainWindow", u"Max", None))
-        self.choose_ticker_label.setText(QCoreApplication.translate("MainWindow", u"Default daily stock data:", None))
-        self.or_label.setText(QCoreApplication.translate("MainWindow", u" or", None))
-        self.importcsv_label.setText(QCoreApplication.translate("MainWindow", u"Import CSV:", None))
-        self.fileexplorer_button.setText(QCoreApplication.translate("MainWindow", u"File Explorer", None))
-        self.currentdata_label.setText(QCoreApplication.translate("MainWindow", u"Current Data: None", None))
-        self.import_button.setText(QCoreApplication.translate("MainWindow", u"Import", None))
-        self.back_button.setText(QCoreApplication.translate("MainWindow", u"Back", None))
+        self.choose_ticker_label.setText(QCoreApplication.translate("MainWindow", u"Stock", None))
         self.createmodel_button.setText(QCoreApplication.translate("MainWindow", u"Create Model", None))
         self.forecast_button.setText(QCoreApplication.translate("MainWindow", u"Forecast", None))
         self.forecast_progress_label.setText(QCoreApplication.translate("MainWindow", u"Forecasting...", None))
