@@ -1,4 +1,4 @@
-# TradingDeepLearningBuilder
+# StockPriceForecastModeler
 An interface in which the user can build a Neural Net, define its parameters, and deploy it on financial time series data.
 
 (Current app needs testing and cannot be used to place real trades. This app serves as a proof of concept)
